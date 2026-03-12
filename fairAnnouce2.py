@@ -69,20 +69,17 @@ def main():
     create_lock()
 
     try:
-        # Path to the CSV file
-        csv_file = 'path/to/your/csv_file.csv'
-        
-        # Read the CSV file
+        # Path to the Excel schedule file (created by xlsxBuilder.py)
+        xlsx_file = 'path/to/your/schedule.xlsx'
+
+        # Read the Excel file
         try:
-            df = pd.read_csv(csv_file)
+            df = pd.read_excel(xlsx_file, dtype=str)
         except FileNotFoundError:
-            print(f"Error: The file {csv_file} was not found.")
+            print(f"Error: The file {xlsx_file} was not found.")
             return
-        except pd.errors.EmptyDataError:
-            print(f"Error: The file {csv_file} is empty.")
-            return
-        except pd.errors.ParserError:
-            print(f"Error: There was a problem parsing the file {csv_file}.")
+        except Exception as e:
+            print(f"Error reading {xlsx_file}: {e}")
             return
 
         for index, row in df.iterrows():

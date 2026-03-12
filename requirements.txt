@@ -1,0 +1,6 @@
+comtypes==1.4.5
+openpyxl>=3.1
+pandas==2.2.2
+psutil==5.9.5
+pycaw==20240210
+tkcalendar==1.6.1

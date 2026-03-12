@@ -1,3 +1,4 @@
+import argparse
 import os
 import sys
 import pandas as pd
@@ -8,6 +9,12 @@ import subprocess
 import psutil
 
 LOCK_FILE = 'script.lock'
+
+# ── Default schedule file ─────────────────────────────────────────────────────
+# Change this path to your Excel schedule file, or pass a path on the command
+# line:  python fairAnnouce2.py "C:\Schedules\fair2026.xlsx"
+DEFAULT_SCHEDULE = 'path/to/your/schedule.xlsx'
+# ─────────────────────────────────────────────────────────────────────────────
 
 # Function to create a lock file
 def create_lock():
@@ -65,13 +72,24 @@ def find_media_player_process():
     return None
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Fair Announcement Scheduler — plays audio files at scheduled times."
+    )
+    parser.add_argument(
+        "schedule",
+        nargs="?",
+        default=DEFAULT_SCHEDULE,
+        help="Path to the Excel schedule file (.xlsx). Defaults to DEFAULT_SCHEDULE in this file."
+    )
+    args = parser.parse_args()
+    xlsx_file = args.schedule
+
+    print(f"Using schedule file: {xlsx_file}")
+
     # Ensure only one instance of the script is running
     create_lock()
 
     try:
-        # Path to the Excel schedule file (created by xlsxBuilder.py)
-        xlsx_file = 'path/to/your/schedule.xlsx'
-
         # Read the Excel file
         try:
             df = pd.read_excel(xlsx_file, dtype=str)

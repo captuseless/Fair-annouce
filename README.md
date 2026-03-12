@@ -65,18 +65,30 @@ The Excel file uses two columns:
 
 ## Running the Scheduler (fairAnnouce2.py)
 
-**1. Set the path to your schedule file**
+**Option A — pass the path on the command line (overrides the default)**
 
-Open `fairAnnouce2.py` and update line 73:
-
-```python
-xlsx_file = 'C:\\Users\\YourName\\schedules\\fair2026.xlsx'
+```bat
+python fairAnnouce2.py "C:\Schedules\fair2026.xlsx"
 ```
 
-**2. Run the script**
+**Option B — hardcode a default path**
+
+Open `fairAnnouce2.py` and update the `DEFAULT_SCHEDULE` constant near the top:
+
+```python
+DEFAULT_SCHEDULE = 'C:\\Schedules\\fair2026.xlsx'
+```
+
+Then run without arguments and it will use that path automatically:
 
 ```bat
 python fairAnnouce2.py
+```
+
+**Get help / see usage**
+
+```bat
+python fairAnnouce2.py --help
 ```
 
 The script will:
